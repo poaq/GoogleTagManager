@@ -1,0 +1,30 @@
+{
+    "name": "poaq/google-tag-manager",
+    "type": "symfony-bundle",
+    "description": "Google Tag Manager Bundle for Symfony",
+    "keywords": ["Google Tag Manager", "Tag Manager"],
+    "homepage": "https://github.com/poaq/GoogleTagManager",
+    "license": "LGPL-3.0-only",
+    "authors": [
+        {
+            "name": "poaq",
+            "email": "donrezo@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.2.0",
+        "symfony/dependency-injection": "~2.8|~3.0|~4.0|~5.0",
+        "symfony/http-kernel": "~2.8|~3.0|~4.0|~5.0",
+        "symfony/config": "~2.8|~3.0|~4.0|~5.0",
+        "symfony/templating": "~2.8|~3.0|~4.0|~5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit":  "~4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Poaq\\GoogleTagManagerBundle\\": ""
+        }
+    }
+}

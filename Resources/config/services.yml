@@ -1,0 +1,34 @@
+services:
+    google_tag_manager.factory:
+        public: false
+        class: Poaq\GoogleTagManagerBundle\Service\GoogleTagManagerFactory
+        calls:
+            - [setContainer, ["@service_container"]]
+
+    google_tag_manager:
+        public: true
+        class: Poaq\GoogleTagManagerBundle\Service\GoogleTagManager
+        factory: ["@google_tag_manager.factory", create]
+        tags:
+            - { name: "kernel.reset", method: "reset" }
+
+    templating.helper.google_tag_manager:
+        public: false
+        class: Poaq\GoogleTagManagerBundle\Helper\GoogleTagManagerHelper
+        arguments: ["@google_tag_manager"]
+        tags:
+            - { name: "templating.helper", alias: "google_tag_manager" }
+
+    twig.extension.google_tag_manager:
+        public: false
+        class: Poaq\GoogleTagManagerBundle\Twig\GoogleTagManagerExtension
+        arguments: ["@templating.helper.google_tag_manager"]
+        tags:
+            - { name: "twig.extension" }
+
+    listener.google_tag_manager:
+        public: true
+        class: Poaq\GoogleTagManagerBundle\EventListener\GoogleTagManagerListener
+        arguments: ["@twig", "@twig.extension.google_tag_manager", "%google_tag_manager.autoAppend%"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
